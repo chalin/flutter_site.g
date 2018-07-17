@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Displaying SnackBars  - Flutter </title>
+  <link rel="shortcut icon" href="/images/favicon.png">
+  
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-ND4LWWZ');</script>
+  <!-- End Google Tag Manager -->
+
+  
+  <meta name="description" content="In some cases, it can be handy to briefly inform our users when certain actionstake place. For example, when a user swipes away a message in a list, we might want to inform them the message has been deleted. We might even want to give them an option to undo...">
+  <meta name="keywords" content=" ">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@flutterio">
+
+  <meta property="og:title" content="Displaying SnackBars">
+  <meta property="og:url" content="https://flutter.io/cookbook/design/snackbars/">
+  <meta property="og:description" content="In some cases, it can be handy to briefly inform our users when certain actionstake place. For example, when a user swipes away a message in a list, we might want to inform them the message has been deleted. We might even want to give them an option to undo...">
+  
+  <meta property="og:image" content="https://flutter.io/images/flutter-logo-sharing.png">
+
+  <link rel="stylesheet" href="/css/lavish-bootstrap.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Extended" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CRoboto:500,400italic,300,400" rel="stylesheet">
+  
+  <link rel="canonical" href="https://flutter.io/cookbook/design/snackbars/">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-67589403-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <meta name="google-site-verification" content="HFqxhSbf9YA_0rBglNLzDiWnrHiK_w4cqDh2YD2GEY4" />
+</head>
+
+
+  <body class="">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND4LWWZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+    <div id="overlay-under-drawer"><!-- for the drawer on narrow screens --></div>
+
+    <header class="site-header">
+  <div class="container-fluid header-contents">
+    <div class="row">
+      <div class="col-md-12">
+        <i class="fa fa-bars" id="sidebar-toggle-button" aria-hidden="true" style="display:none"></i>
+        <img src="/images/flutter-mark-square-100.png" alt="Flutter Logo" width="40" height="40" style="vertical-align:middle">
+
+        <a class="site-title" href="/">Flutter</a>
+
+        <nav class="site-nav">
+          <a href="#" class="menu-icon">
+            <i class="material-icons-extended">more_vert</i>
+          </a>
+          <div class="trigger">
+            <a class="page-link" href="/docs/">Docs</a>
+            <a class="page-link" href="/showcase/">Showcase</a>
+            <a class="page-link" href="https://github.com/flutter/flutter">GitHub</a>
+            <a class="page-link" href="https://pub.dartlang.org/flutter">Packages</a>
+            <a class="page-link" href="/support/">Support</a>
+            <form action="/search/" class="nav-searchbox" id="cse-search-box" style="display: inline">
+              <input type="hidden" name="cx" value="007067728241810524621:gm6vraqlc8c">
+              <input type="hidden" name="ie" value="UTF-8">
+              <input type="hidden" name="hl" value="en">
+              <input type="search" name="q" id="q" autocomplete="off" placeholder="Search">
+            </form>
+          </div>
+        </nav>
+      </div>
+    </div> <!-- /.row -->
+  </div> <!-- /.container -->
+</header>
+
+
+    <!-- Page Content -->
+    <div class="container-fluid contents">
+      <!-- Content Row -->
+      <div class="row">
+
+        <!-- Sidebar Column -->
+        <div id="side-nav-container" class="col-sm-3">
+          <ul id="mysidebar" class="nav">
+
+  <li class="sidebar-title">Get started</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/get-started/install/">1: Install</a></li>
+      <li><a href="/get-started/editor/">2: Configure editor</a></li>
+      <li><a href="/get-started/test-drive/">3: Test drive</a></li>
+      <li><a href="/get-started/codelab/">4: Write your first app</a></li>
+      <li><a href="/get-started/learn-more/">5: Learn more</a></li>
+    </ul>
+
+  <li class="sidebar-title">Build UIs</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/widgets-intro/">Tour the framework</a></li>
+      <li><a href="/widgets/">Widget catalog</a></li>
+      <li><a href="/cookbook/">Cookbook</a></li>
+      <li><a href="/catalog/samples/">Sample catalog</a></li>
+      <li><a href="/codelabs">Codelabs</a></li>
+      <li><a href="/tutorials/layout/">Build layouts - Tutorial</a></li>
+      <li><a href="/tutorials/interactive/">Add interactivity - Tutorial</a></li>
+      <li><a href="/web-analogs/">Flutter for Web devs</a></li>
+      <li><a href="/flutter-for-android/">Flutter for Android devs</a></li>
+      <li><a href="/flutter-for-ios/">Flutter for iOS devs</a></li>
+      <li><a href="/flutter-for-react-native/">Flutter for React Native devs</a></li>
+      <li><a href="/flutter-for-xamarin-forms/">Flutter for Xamarin.Forms devs</a></li>
+      <li><a href="/gestures/">Gestures</a></li>
+      <li><a href="/animations/">Animations</a></li>
+      <li><a href="/layout/">Box constraints</a></li>
+      <li><a href="/assets-and-images/">Assets and images</a></li>
+      <li><a href="/tutorials/internationalization">Internationalization</a></li>
+      <li><a href="/accessibility">Accessibility</a></li>
+    </ul>
+
+  <li class="sidebar-title">Use device and SDK APIs</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/using-packages/">Using packages</a></li>
+      <li><a href="/developing-packages/">Developing packages</a></li>
+      <li><a href="/platform-channels/">Platform-specific code</a></li>
+      <li><a href="/json/">JSON and serialization</a></li>
+      
+    </ul>
+
+  <li class="sidebar-title">Development and tools</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/using-ide/">Using Flutter IDEs</a></li>
+      <li><a href="/hot-reload/">Using hot reload</a></li>
+      <li><a href="/testing/">Test your app</a></li>
+      <li><a href="/debugging/">Debug your app</a></li>
+      <li><a href="/ui-performance/">Performance Profiling</a></li>
+      <li><a href="/inspector/">Inspect your UI</a></li>
+      <li><a href="/android-release/">Build and release for Android</a></li>
+      <li><a href="/ios-release/">Build and release for iOS</a></li>
+      <li><a href="/fastlane-cd/">Continuous deployment with Fastlane</a></li>
+      <li><a href="/upgrading/">Upgrade your Flutter install</a></li>
+      <li><a href="/formatting/">Format your source code</a></li>
+    </ul>
+
+  <li class="sidebar-title">More details</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/faq/">FAQ</a></li>
+      <li><a href="/technical-overview">Technical overview</a></li>
+      <li><a href="https://docs.google.com/presentation/d/1B3p0kP6NV_XMOimRV09Ms75ymIjU5gr6GGIX74Om_DE/edit?usp=sharing">Magic of Flutter slides</a></li>
+      <li><a href="https://docs.google.com/presentation/d/1cw7A4HbvM_Abv320rVgPVGiUP2msVs7tfGbkgdrTy0I/edit?usp=sharing">Architecture diagrams</a></li>
+      <li><a href="https://www.youtube.com/watch?v=dkyY9WCGMi0">Framework's layered design <i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+      <li><a href="https://www.youtube.com/watch?v=UUfXWzp0-DU">Flutter's rendering pipeline <i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+    </ul>
+
+</ul>
+
+        </div>
+
+        
+        
+
+        <!-- Content Column -->
+        <div class="col-sm-9 main-contents">
+          <div class="main-contents-body">
+            <article class="post-content">
+  
+  
+  <header class="post-header">
+      <div class="btn-group contribute" role="group">
+         <a href="https://github.com/flutter/website/blob/master/cookbook/design/snackbars.md" class="btn btn-sm">
+            <i class="fa fa-pencil"></i> Edit Source
+         </a>
+         <a href="https://github.com/flutter/flutter/issues/new?title=Issue from website page Displaying SnackBars&body=From URL: https://flutter.io/cookbook/design/snackbars/&labels=dev: docs - website" class="btn btn-sm">
+            <i class="fa fa-github"></i> File Issue
+        </a>
+     </div>
+   <div>
+    <h1 class="post-title">Displaying SnackBars </h1>
+   </div>
+
+  </header>
+  
+
+  <p>In some cases, it can be handy to briefly inform our users when certain actions
+take place. For example, when a user swipes away a message in a list, we might 
+want to inform them the message has been deleted. We might even want to give 
+them an option to undo the action!</p>
+
+<p>In Material Design, this is the job of a <a href="https://docs.flutter.io/flutter/material/SnackBar-class.html">SnackBar</a>.</p>
+
+<h2 id="directions">Directions</h2>
+
+<ol>
+  <li>Create a <code class="highlighter-rouge">Scaffold</code></li>
+  <li>Display a <code class="highlighter-rouge">SnackBar</code></li>
+  <li>Provide an additional action</li>
+</ol>
+
+<h2 id="1-create-a-scaffold">1. Create a <code class="highlighter-rouge">Scaffold</code></h2>
+
+<p>When creating apps that follow the Material Design guidelines, we’ll want to 
+give our apps a consistent visual structure. In this case, we’ll need to display 
+the <code class="highlighter-rouge">SnackBar</code> at the bottom of the screen, without overlapping other important 
+Widgets, such as the <code class="highlighter-rouge">FloatingActionButton</code>!</p>
+
+<p>The <a href="https://docs.flutter.io/flutter/material/Scaffold-class.html">Scaffold</a>
+Widget from the <a href="https://docs.flutter.io/flutter/material/material-library.html">material library</a> 
+creates this visual structure for us and ensures important Widgets don’t 
+overlap!</p>
+
+<!-- skip -->
+<div class="language-dart highlighter-rouge"><pre class="highlight"><code><span class="n">Scaffold</span><span class="o">(</span>
+  <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="o">(</span>
+    <span class="nl">title:</span> <span class="n">Text</span><span class="o">(</span><span class="s">'SnackBar Demo'</span><span class="o">),</span>
+  <span class="o">),</span>
+  <span class="nl">body:</span> <span class="n">SnackBarPage</span><span class="o">(),</span> <span class="c1">// We'll fill this in below!</span>
+<span class="o">);</span>
+</code></pre>
+</div>
+
+<h2 id="2-display-a-snackbar">2. Display a <code class="highlighter-rouge">SnackBar</code></h2>
+
+<p>With the <code class="highlighter-rouge">Scaffold</code> in place, we can display a <code class="highlighter-rouge">SnackBar</code>! First, we need to 
+create a <code class="highlighter-rouge">SnackBar</code>, then display it using the <code class="highlighter-rouge">Scaffold</code>.</p>
+
+<!-- skip -->
+<div class="language-dart highlighter-rouge"><pre class="highlight"><code><span class="kd">final</span> <span class="n">snackBar</span> <span class="o">=</span> <span class="n">SnackBar</span><span class="o">(</span><span class="nl">content:</span> <span class="n">Text</span><span class="o">(</span><span class="s">'Yay! A SnackBar!'</span><span class="o">));</span>
+
+<span class="c1">// Find the Scaffold in the Widget tree and use it to show a SnackBar</span>
+<span class="n">Scaffold</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">context</span><span class="o">).</span><span class="na">showSnackBar</span><span class="o">(</span><span class="n">snackBar</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<h2 id="3-provide-an-additional-action">3. Provide an additional action</h2>
+
+<p>In some cases, we might want to provide an additional action to the user when
+the SnackBar is displayed. For example, if they’ve accidentally deleted a 
+message, we could provide an action to undo that change.</p>
+
+<p>To achieve this, we can provide an additional <code class="highlighter-rouge">action</code> to the <code class="highlighter-rouge">SnackBar</code> Widget.</p>
+
+<div class="language-dart highlighter-rouge"><pre class="highlight"><code><span class="kd">final</span> <span class="n">snackBar</span> <span class="o">=</span> <span class="n">SnackBar</span><span class="o">(</span>
+  <span class="nl">content:</span> <span class="n">Text</span><span class="o">(</span><span class="s">'Yay! A SnackBar!'</span><span class="o">),</span>
+  <span class="nl">action:</span> <span class="n">SnackBarAction</span><span class="o">(</span>
+    <span class="nl">label:</span> <span class="s">'Undo'</span><span class="o">,</span>
+    <span class="nl">onPressed:</span> <span class="o">()</span> <span class="o">{</span>
+      <span class="c1">// Some code to undo the change!</span>
+    <span class="o">},</span>
+  <span class="o">),</span>
+<span class="o">);</span>
+</code></pre>
+</div>
+
+<h2 id="complete-example">Complete example</h2>
+
+<p>Note: In this example, we’ll show the SnackBar when a user taps on a button.
+For more information on working with user input, please see the 
+<a href="/cookbook/#handling-gestures">Handling Gestures</a> section
+of the Cookbook.</p>
+
+<div class="language-dart highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:flutter/material.dart'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">runApp</span><span class="o">(</span><span class="n">SnackBarDemo</span><span class="o">());</span>
+
+<span class="kd">class</span> <span class="nc">SnackBarDemo</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="o">{</span>
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="o">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">MaterialApp</span><span class="o">(</span>
+      <span class="nl">title:</span> <span class="s">'SnackBar Demo'</span><span class="o">,</span>
+      <span class="nl">home:</span> <span class="n">Scaffold</span><span class="o">(</span>
+        <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="o">(</span>
+          <span class="nl">title:</span> <span class="n">Text</span><span class="o">(</span><span class="s">'SnackBar Demo'</span><span class="o">),</span>
+        <span class="o">),</span>
+        <span class="nl">body:</span> <span class="n">SnackBarPage</span><span class="o">(),</span>
+      <span class="o">),</span>
+    <span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">SnackBarPage</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="o">{</span>
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="o">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Center</span><span class="o">(</span>
+      <span class="nl">child:</span> <span class="n">RaisedButton</span><span class="o">(</span>
+        <span class="nl">onPressed:</span> <span class="o">()</span> <span class="o">{</span>
+          <span class="kd">final</span> <span class="n">snackBar</span> <span class="o">=</span> <span class="n">SnackBar</span><span class="o">(</span>
+            <span class="nl">content:</span> <span class="n">Text</span><span class="o">(</span><span class="s">'Yay! A SnackBar!'</span><span class="o">),</span>
+            <span class="nl">action:</span> <span class="n">SnackBarAction</span><span class="o">(</span>
+              <span class="nl">label:</span> <span class="s">'Undo'</span><span class="o">,</span>
+              <span class="nl">onPressed:</span> <span class="o">()</span> <span class="o">{</span>
+                <span class="c1">// Some code to undo the change!</span>
+              <span class="o">},</span>
+            <span class="o">),</span>
+          <span class="o">);</span>
+
+          <span class="c1">// Find the Scaffold in the Widget tree and use it to show a SnackBar!</span>
+          <span class="n">Scaffold</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">context</span><span class="o">).</span><span class="na">showSnackBar</span><span class="o">(</span><span class="n">snackBar</span><span class="o">);</span>
+        <span class="o">},</span>
+        <span class="nl">child:</span> <span class="n">Text</span><span class="o">(</span><span class="s">'Show SnackBar'</span><span class="o">),</span>
+      <span class="o">),</span>
+    <span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><img src="/images/cookbook/snackbar.gif" alt="SnackBar Demo" /></p>
+
+</article>
+
+          </div>
+        </div>
+
+        
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+
+    <footer class="site-footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="logo">
+          <img src="/images/flutter-mono-81x100.png" alt="Flutter Logo" width="81" height="100">
+        </div>
+          <p class="site-footer__link-list">
+            <a href="https://groups.google.com/forum/#!forum/flutter-dev">flutter-dev@</a> &bull;
+            <a href="https://twitter.com/flutterio">twitter</a> &bull;
+            <a href="https://github.com/flutter/">github</a> &bull;
+            <a href="/tos">terms</a> &bull;
+            <a href="https://www.google.com/intl/en/policies/privacy/">privacy</a> &bull;
+            <a href="https://flutter-io.cn">社区中文资源</a>
+          </p>
+
+          <p class="licenses">
+            Except as otherwise noted,
+            this work is licensed under a
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative
+            Commons Attribution 4.0 International License</a>,
+            and code samples are licensed under the BSD License.
+          </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="/js/sidebar_toggle.js"></script>
+    <script src="/js/customscripts.js"></script>
+    <script src="/js/prism.js"></script>
+    <script src="/js/tabs.js"></script>
+    <script src="/js/archive.js"></script>
+    
+    <script async="" defer="" src="//survey.g.doubleclick.net/async_survey?site=at3ul57xpub2vk3oxt2ytw365i"></script>
+  </body>
+</html>

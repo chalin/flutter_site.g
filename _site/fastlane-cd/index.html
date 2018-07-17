@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Continuous Delivery using Fastlane with Flutter  - Flutter </title>
+  <link rel="shortcut icon" href="/images/favicon.png">
+  
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-ND4LWWZ');</script>
+  <!-- End Google Tag Manager -->
+
+  
+  <meta name="description" content="How to use Fastlane to automate continuous building and releasing of your Flutter app.">
+  <meta name="keywords" content=" ">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@flutterio">
+
+  <meta property="og:title" content="Continuous Delivery using Fastlane with Flutter">
+  <meta property="og:url" content="https://flutter.io/fastlane-cd/">
+  <meta property="og:description" content="How to use Fastlane to automate continuous building and releasing of your Flutter app.">
+  
+  <meta property="og:image" content="https://flutter.io/images/flutter-logo-sharing.png">
+
+  <link rel="stylesheet" href="/css/lavish-bootstrap.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Extended" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CRoboto:500,400italic,300,400" rel="stylesheet">
+  
+  <link rel="canonical" href="https://flutter.io/fastlane-cd/">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-67589403-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <meta name="google-site-verification" content="HFqxhSbf9YA_0rBglNLzDiWnrHiK_w4cqDh2YD2GEY4" />
+</head>
+
+
+  <body class="">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND4LWWZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+    <div id="overlay-under-drawer"><!-- for the drawer on narrow screens --></div>
+
+    <header class="site-header">
+  <div class="container-fluid header-contents">
+    <div class="row">
+      <div class="col-md-12">
+        <i class="fa fa-bars" id="sidebar-toggle-button" aria-hidden="true" style="display:none"></i>
+        <img src="/images/flutter-mark-square-100.png" alt="Flutter Logo" width="40" height="40" style="vertical-align:middle">
+
+        <a class="site-title" href="/">Flutter</a>
+
+        <nav class="site-nav">
+          <a href="#" class="menu-icon">
+            <i class="material-icons-extended">more_vert</i>
+          </a>
+          <div class="trigger">
+            <a class="page-link" href="/docs/">Docs</a>
+            <a class="page-link" href="/showcase/">Showcase</a>
+            <a class="page-link" href="https://github.com/flutter/flutter">GitHub</a>
+            <a class="page-link" href="https://pub.dartlang.org/flutter">Packages</a>
+            <a class="page-link" href="/support/">Support</a>
+            <form action="/search/" class="nav-searchbox" id="cse-search-box" style="display: inline">
+              <input type="hidden" name="cx" value="007067728241810524621:gm6vraqlc8c">
+              <input type="hidden" name="ie" value="UTF-8">
+              <input type="hidden" name="hl" value="en">
+              <input type="search" name="q" id="q" autocomplete="off" placeholder="Search">
+            </form>
+          </div>
+        </nav>
+      </div>
+    </div> <!-- /.row -->
+  </div> <!-- /.container -->
+</header>
+
+
+    <!-- Page Content -->
+    <div class="container-fluid contents">
+      <!-- Content Row -->
+      <div class="row">
+
+        <!-- Sidebar Column -->
+        <div id="side-nav-container" class="col-sm-3">
+          <ul id="mysidebar" class="nav">
+
+  <li class="sidebar-title">Get started</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/get-started/install/">1: Install</a></li>
+      <li><a href="/get-started/editor/">2: Configure editor</a></li>
+      <li><a href="/get-started/test-drive/">3: Test drive</a></li>
+      <li><a href="/get-started/codelab/">4: Write your first app</a></li>
+      <li><a href="/get-started/learn-more/">5: Learn more</a></li>
+    </ul>
+
+  <li class="sidebar-title">Build UIs</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/widgets-intro/">Tour the framework</a></li>
+      <li><a href="/widgets/">Widget catalog</a></li>
+      <li><a href="/cookbook/">Cookbook</a></li>
+      <li><a href="/catalog/samples/">Sample catalog</a></li>
+      <li><a href="/codelabs">Codelabs</a></li>
+      <li><a href="/tutorials/layout/">Build layouts - Tutorial</a></li>
+      <li><a href="/tutorials/interactive/">Add interactivity - Tutorial</a></li>
+      <li><a href="/web-analogs/">Flutter for Web devs</a></li>
+      <li><a href="/flutter-for-android/">Flutter for Android devs</a></li>
+      <li><a href="/flutter-for-ios/">Flutter for iOS devs</a></li>
+      <li><a href="/flutter-for-react-native/">Flutter for React Native devs</a></li>
+      <li><a href="/flutter-for-xamarin-forms/">Flutter for Xamarin.Forms devs</a></li>
+      <li><a href="/gestures/">Gestures</a></li>
+      <li><a href="/animations/">Animations</a></li>
+      <li><a href="/layout/">Box constraints</a></li>
+      <li><a href="/assets-and-images/">Assets and images</a></li>
+      <li><a href="/tutorials/internationalization">Internationalization</a></li>
+      <li><a href="/accessibility">Accessibility</a></li>
+    </ul>
+
+  <li class="sidebar-title">Use device and SDK APIs</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/using-packages/">Using packages</a></li>
+      <li><a href="/developing-packages/">Developing packages</a></li>
+      <li><a href="/platform-channels/">Platform-specific code</a></li>
+      <li><a href="/json/">JSON and serialization</a></li>
+      
+    </ul>
+
+  <li class="sidebar-title">Development and tools</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/using-ide/">Using Flutter IDEs</a></li>
+      <li><a href="/hot-reload/">Using hot reload</a></li>
+      <li><a href="/testing/">Test your app</a></li>
+      <li><a href="/debugging/">Debug your app</a></li>
+      <li><a href="/ui-performance/">Performance Profiling</a></li>
+      <li><a href="/inspector/">Inspect your UI</a></li>
+      <li><a href="/android-release/">Build and release for Android</a></li>
+      <li><a href="/ios-release/">Build and release for iOS</a></li>
+      <li><a href="/fastlane-cd/">Continuous deployment with Fastlane</a></li>
+      <li><a href="/upgrading/">Upgrade your Flutter install</a></li>
+      <li><a href="/formatting/">Format your source code</a></li>
+    </ul>
+
+  <li class="sidebar-title">More details</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/faq/">FAQ</a></li>
+      <li><a href="/technical-overview">Technical overview</a></li>
+      <li><a href="https://docs.google.com/presentation/d/1B3p0kP6NV_XMOimRV09Ms75ymIjU5gr6GGIX74Om_DE/edit?usp=sharing">Magic of Flutter slides</a></li>
+      <li><a href="https://docs.google.com/presentation/d/1cw7A4HbvM_Abv320rVgPVGiUP2msVs7tfGbkgdrTy0I/edit?usp=sharing">Architecture diagrams</a></li>
+      <li><a href="https://www.youtube.com/watch?v=dkyY9WCGMi0">Framework's layered design <i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+      <li><a href="https://www.youtube.com/watch?v=UUfXWzp0-DU">Flutter's rendering pipeline <i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+    </ul>
+
+</ul>
+
+        </div>
+
+        
+        
+
+        <!-- Content Column -->
+        <div class="col-sm-9 main-contents">
+          <div class="main-contents-body">
+            <article class="post-content">
+  
+  
+  <header class="post-header">
+      <div class="btn-group contribute" role="group">
+         <a href="https://github.com/flutter/website/blob/master/fastlane.md" class="btn btn-sm">
+            <i class="fa fa-pencil"></i> Edit Source
+         </a>
+         <a href="https://github.com/flutter/flutter/issues/new?title=Issue from website page Continuous Delivery using Fastlane with Flutter&body=From URL: https://flutter.io/fastlane-cd/&labels=dev: docs - website" class="btn btn-sm">
+            <i class="fa fa-github"></i> File Issue
+        </a>
+     </div>
+   <div>
+    <h1 class="post-title">Continuous Delivery using Fastlane with Flutter </h1>
+   </div>
+
+  </header>
+  
+
+  <p>Follow continuous delivery best practices with Flutter to make sure your
+application is delivered to your beta testers and validated on a frequent basis
+without resorting to manual workflows.</p>
+
+<p>This guide shows how to integrate <a href="https://docs.fastlane.tools/">Fastlane</a>, an
+open-source tool suite, with your existing testing and continuous integration
+(CI) workflows (for example, Travis or Cirrus).</p>
+
+<ul id="markdown-toc">
+  <li><a href="#local-setup" id="markdown-toc-local-setup">Local setup</a></li>
+  <li><a href="#running-deployment-locally" id="markdown-toc-running-deployment-locally">Running deployment locally</a></li>
+  <li><a href="#cloud-build-and-deploy-setup" id="markdown-toc-cloud-build-and-deploy-setup">Cloud build and deploy setup</a></li>
+  <li><a href="#reference" id="markdown-toc-reference">Reference</a></li>
+</ul>
+
+<h2 id="local-setup">Local setup</h2>
+
+<p>It’s recommended that you test the build and deployment process locally before
+migrating to a cloud-based system. You could also choose to perform continuous
+delivery from a local machine.</p>
+
+<ol>
+  <li>Install Fastlane <code class="highlighter-rouge">gem install fastlane</code> or <code class="highlighter-rouge">brew cask install fastlane</code>.</li>
+  <li>Create your Flutter project, and when ready, make sure that your project builds via
+    <ul>
+      <li><img src="/images/fastlane-cd/android.png" alt="Android" /> <code class="highlighter-rouge">flutter build apk --release</code>; and</li>
+      <li><img src="/images/fastlane-cd/ios.png" alt="iOS" /> <code class="highlighter-rouge">flutter build ios --release --no-codesign</code>.</li>
+    </ul>
+  </li>
+  <li>Initialize the Fastlane projects for each platform.
+    <ul>
+      <li><img src="/images/fastlane-cd/android.png" alt="Android" /> In your <code class="highlighter-rouge">[project]/android</code>
+ directory, run <code class="highlighter-rouge">fastlane init</code>.</li>
+      <li><img src="/images/fastlane-cd/ios.png" alt="iOS" /> In your <code class="highlighter-rouge">[project]/ios</code> directory,
+ run <code class="highlighter-rouge">fastlane init</code>.</li>
+    </ul>
+  </li>
+  <li>Edit the <code class="highlighter-rouge">Appfile</code>s to ensure they have adequate metadata for your app.
+    <ul>
+      <li><img src="/images/fastlane-cd/android.png" alt="Android" /> Check that <code class="highlighter-rouge">package_name</code> in
+ <code class="highlighter-rouge">[project]/android/Appfile</code> matches your package in pubspec.yaml.</li>
+      <li><img src="/images/fastlane-cd/ios.png" alt="iOS" /> Check that <code class="highlighter-rouge">app_identifier</code> in
+ <code class="highlighter-rouge">[project]/ios/Appfile</code> also matches. Fill in <code class="highlighter-rouge">apple_id</code>, <code class="highlighter-rouge">itc_team_id</code>,
+ <code class="highlighter-rouge">team_id</code> with your respective account info.</li>
+    </ul>
+  </li>
+  <li>Set up your local login credentials for the stores.
+    <ul>
+      <li><img src="/images/fastlane-cd/android.png" alt="Android" /> Follow the <a href="https://docs.fastlane.tools/getting-started/android/setup/#setting-up-supply">Supply setup steps</a>
+ and ensure that <code class="highlighter-rouge">fastlane supply init</code> successfully syncs data from your
+ Play Store console. <em>Treat the .json file like your password and do not check
+ it into any public source control repositories.</em></li>
+      <li><img src="/images/fastlane-cd/ios.png" alt="iOS" /> Your iTunes Connect username is already
+ in your <code class="highlighter-rouge">Appfile</code>’s <code class="highlighter-rouge">apple_id</code> field. Set the <code class="highlighter-rouge">FASTLANE_PASSWORD</code> shell
+ environment variable with your iTunes Connect password. Otherwise, you’ll be
+ prompted when uploading to iTunes/TestFlight.</li>
+    </ul>
+  </li>
+  <li>Set up code signing.
+    <ul>
+      <li><img src="/images/fastlane-cd/android.png" alt="Android" /> On Android, there are two
+ signing keys: deployment and upload. The end-users download the .apk signed
+ with the ‘deployment key’. An ‘upload key’ is used to authenticate the .apk
+ uploaded by developers onto the Play Store and is re-signed with the
+ deployment key once in the Play Store.
+        <ul>
+          <li>It’s highly recommended to use the automatic cloud managed signing for
+  the deployment key. For more information, see the <a href="https://support.google.com/googleplay/android-developer/answer/7384423?hl=en">official Play Store documentation</a>.</li>
+          <li>Follow the <a href="https://developer.android.com/studio/publish/app-signing#sign-apk">key generation steps</a>
+  to create your upload key.</li>
+          <li>Configure gradle to use your upload key when building your app in
+  release mode by editing <code class="highlighter-rouge">android.buildTypes.release</code> in
+  <code class="highlighter-rouge">[project]/android/app/build.gradle</code>.</li>
+        </ul>
+      </li>
+      <li><img src="/images/fastlane-cd/ios.png" alt="iOS" /> On iOS, create and sign using a
+ distribution certificate instead of a development certificate when you’re
+ ready to test and deploy using TestFlight or App Store.
+        <ul>
+          <li>Create and download a distribution certificate in your <a href="https://developer.apple.com/account/ios/certificate/">Apple Developer Account console</a>.</li>
+          <li><code class="highlighter-rouge">open [project]/ios/Runner.xcworkspace/</code> and select the distribution
+  certificate in your target’s settings pane.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>Create a <code class="highlighter-rouge">Fastfile</code> script for each platform.
+    <ul>
+      <li><img src="/images/fastlane-cd/android.png" alt="Android" /> On Android, follow the
+ <a href="https://docs.fastlane.tools/getting-started/android/beta-deployment/">Fastlane Android beta deployment guide</a>.
+ Your edit could be as simple as adding a <code class="highlighter-rouge">lane</code> that calls <code class="highlighter-rouge">upload_to_play_store</code>.
+ Set the <code class="highlighter-rouge">apk</code> argument to <code class="highlighter-rouge">../build/app/outputs/apk/release/app-release.apk</code>
+ to use the apk <code class="highlighter-rouge">flutter build</code> already built.</li>
+      <li><img src="/images/fastlane-cd/ios.png" alt="iOS" /> On iOS, follow the <a href="https://docs.fastlane.tools/getting-started/ios/beta-deployment/">Fastlane iOS beta deployment guide</a>.
+ Your edit could be as simple as adding a <code class="highlighter-rouge">lane</code> that calls <code class="highlighter-rouge">build_ios_app</code> with
+ <code class="highlighter-rouge">export_method: 'app-store'</code> and <code class="highlighter-rouge">upload_to_testflight</code>. On iOS an extra
+ build is required since <code class="highlighter-rouge">flutter build</code> builds an .app rather than archiving
+ .ipas for release.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>You’re now ready to perform deployments locally or migrate the deployment
+process to a continuous integration (CI) system.</p>
+
+<h2 id="running-deployment-locally">Running deployment locally</h2>
+
+<ol>
+  <li>Build the release mode app.
+    <ul>
+      <li><img src="/images/fastlane-cd/android.png" alt="Android" /> <code class="highlighter-rouge">flutter build apk --release</code>.</li>
+      <li><img src="/images/fastlane-cd/ios.png" alt="iOS" /> <code class="highlighter-rouge">flutter build ios --release --no-codesign</code>.
+ No need to sign now since Fastlane will sign when archiving.</li>
+    </ul>
+  </li>
+  <li>Run the Fastfile script on each platform.
+    <ul>
+      <li><img src="/images/fastlane-cd/android.png" alt="Android" /> <code class="highlighter-rouge">cd android</code> then
+ <code class="highlighter-rouge">fastlane [name of the lane you created]</code>.</li>
+      <li><img src="/images/fastlane-cd/ios.png" alt="iOS" /> <code class="highlighter-rouge">cd ios</code> then
+ <code class="highlighter-rouge">fastlane [name of the lane you created]</code>.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="cloud-build-and-deploy-setup">Cloud build and deploy setup</h2>
+
+<p>First, follow the local setup section described in ‘Local setup’ to make sure
+the process works before migrating onto a cloud system like Travis.</p>
+
+<p>The main thing to consider is that since cloud instances are ephemeral and
+untrusted, you won’t be leaving your credentials like your Play Store service
+account JSON or your iTunes distribution certificate on the server.</p>
+
+<p>CI systems, such as <a href="https://docs.travis-ci.com/user/environment-variables/#Encrypting-environment-variables">Travis</a>
+or <a href="https://cirrus-ci.org/guide/writing-tasks/#encrypted-variables">Cirrus</a>
+generally support encrypted environment variables to store private data.</p>
+
+<p><strong>Take precaution not to re-echo those variable values back onto the console in
+your test scripts</strong>. Those variables are also not available in pull requests
+until they’re merged to ensure that malicious actors cannot create a pull
+request that prints these secrets out. Be careful with interactions with these
+secrets in pull requests that you accept and merge.</p>
+
+<ol>
+  <li>Make login credentials ephemeral.
+    <ul>
+      <li><img src="/images/fastlane-cd/android.png" alt="Android" /> On Android:
+        <ul>
+          <li>Remove the <code class="highlighter-rouge">json_key_file</code> field from <code class="highlighter-rouge">Appfile</code> and store the string
+  content of the JSON in your CI system’s encrypted variable. Use the
+  <code class="highlighter-rouge">json_key_data</code> argument in <code class="highlighter-rouge">upload_to_play_store</code> to read the
+  environment variable directly in your <code class="highlighter-rouge">Fastfile</code>.</li>
+          <li>Serialize your upload key (for example, using base64) and save it as
+  an encrypted environment variable. You can deserialize it on your CI
+  system during the install phase with
+            <div class="language-bash highlighter-rouge"><pre class="highlight"><code>  <span class="nb">echo</span> <span class="s2">"</span><span class="nv">$PLAY_STORE_UPLOAD_KEY</span><span class="s2">"</span> | base64 --decode &gt; /home/travis/[directory and filename specified <span class="k">in </span>your gradle].keystore
+</code></pre>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li><img src="/images/fastlane-cd/ios.png" alt="iOS" /> On iOS:
+        <ul>
+          <li>Move the local environment variable <code class="highlighter-rouge">FASTLANE_PASSWORD</code> to use
+  encrypted environment variables on the CI system.</li>
+          <li>The CI system needs access to your distribution certificate. Fastlane’s
+  <a href="https://docs.fastlane.tools/actions/match/">Match</a> system is
+  recommended to synchronize your certificates across machines.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>It’s recommended to use a Gemfile instead of using an indeterministic
+<code class="highlighter-rouge">gem install fastlane</code> on the CI system each time to ensure the Fastlane
+dependencies are stable and reproducible between local and cloud machines. However, this step is optional.
+    <ul>
+      <li>In both your <code class="highlighter-rouge">[project]/android</code> and <code class="highlighter-rouge">[project]/ios</code> folders, create a
+ <code class="highlighter-rouge">Gemfile</code> containing the following content:
+        <div class="highlighter-rouge"><pre class="highlight"><code>source "https://rubygems.org"
+
+gem "fastlane"
+</code></pre>
+        </div>
+      </li>
+      <li>In both directories, run <code class="highlighter-rouge">bundle update</code> and check both <code class="highlighter-rouge">Gemfile</code> and
+ <code class="highlighter-rouge">Gemfile.lock</code> into source control.</li>
+      <li>When running locally, use <code class="highlighter-rouge">bundle exec fastlane</code> instead of <code class="highlighter-rouge">fastlane</code>.</li>
+    </ul>
+  </li>
+  <li>Create the CI test script such as <code class="highlighter-rouge">.travis.yml</code> or <code class="highlighter-rouge">.cirrus.yml</code> in your
+repository root.
+    <ul>
+      <li>Shard your script to run on both Linux and macOS platforms.</li>
+      <li>Remember to specify a dependency on Xcode for macOS (for example
+ <code class="highlighter-rouge">osx_image: xcode9.2</code>).</li>
+      <li>See <a href="https://flutter.io/fastlane-cd/">Fastlane CI documentation</a>
+ for CI specific setup.</li>
+      <li>During the setup phase, depending on the platform, make sure that:
+        <ul>
+          <li>Bundler is available using <code class="highlighter-rouge">gem install bundler</code>.</li>
+          <li>For Android, make sure the Android SDK is available and the <code class="highlighter-rouge">ANDROID_HOME</code>
+   path is set.</li>
+          <li>Run <code class="highlighter-rouge">bundle install</code> in <code class="highlighter-rouge">[project]/android</code> or <code class="highlighter-rouge">[project]/ios</code>.</li>
+          <li>Make sure the Flutter SDK is available and set in <code class="highlighter-rouge">PATH</code>.</li>
+        </ul>
+      </li>
+      <li>In the script phase of the CI task:
+        <ul>
+          <li>Run <code class="highlighter-rouge">flutter build apk --release</code> or <code class="highlighter-rouge">flutter build ios --release --no-codesign</code> depending on the platform.</li>
+          <li><code class="highlighter-rouge">cd android</code> or <code class="highlighter-rouge">cd ios</code>.</li>
+          <li><code class="highlighter-rouge">bundle exec fastlane [name of the lane]</code>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="reference">Reference</h2>
+
+<p>The <a href="https://github.com/flutter/flutter/tree/master/examples/flutter_gallery">Flutter Gallery in the Flutter repo</a>
+uses Fastlane for continuous deployment. See the source for a working example of
+Fastlane in action. The Travis script is <a href="https://github.com/flutter/flutter/blob/master/.travis.yml">here</a>.</p>
+
+</article>
+
+          </div>
+        </div>
+
+        
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+
+    <footer class="site-footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="logo">
+          <img src="/images/flutter-mono-81x100.png" alt="Flutter Logo" width="81" height="100">
+        </div>
+          <p class="site-footer__link-list">
+            <a href="https://groups.google.com/forum/#!forum/flutter-dev">flutter-dev@</a> &bull;
+            <a href="https://twitter.com/flutterio">twitter</a> &bull;
+            <a href="https://github.com/flutter/">github</a> &bull;
+            <a href="/tos">terms</a> &bull;
+            <a href="https://www.google.com/intl/en/policies/privacy/">privacy</a> &bull;
+            <a href="https://flutter-io.cn">社区中文资源</a>
+          </p>
+
+          <p class="licenses">
+            Except as otherwise noted,
+            this work is licensed under a
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative
+            Commons Attribution 4.0 International License</a>,
+            and code samples are licensed under the BSD License.
+          </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="/js/sidebar_toggle.js"></script>
+    <script src="/js/customscripts.js"></script>
+    <script src="/js/prism.js"></script>
+    <script src="/js/tabs.js"></script>
+    <script src="/js/archive.js"></script>
+    
+    <script async="" defer="" src="//survey.g.doubleclick.net/async_survey?site=at3ul57xpub2vk3oxt2ytw365i"></script>
+  </body>
+</html>

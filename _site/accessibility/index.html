@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessibility  - Flutter </title>
+  <link rel="shortcut icon" href="/images/favicon.png">
+  
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-ND4LWWZ');</script>
+  <!-- End Google Tag Manager -->
+
+  
+  <meta name="description" content="Flutter is committed to supporting developers who want to make their apps moreaccessible: usable by as many people as possible, including those withdisabilities such as blindness or motor impairment.* Placeholder for TOC{:toc}# Flutter's accessibility supportFlutter supports three components for accessibility support:* **[Large fonts](#large-fonts)**: Render text widgets with user-specified font font...">
+  <meta name="keywords" content=" ">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@flutterio">
+
+  <meta property="og:title" content="Accessibility">
+  <meta property="og:url" content="https://flutter.io/accessibility/">
+  <meta property="og:description" content="Flutter is committed to supporting developers who want to make their apps moreaccessible: usable by as many people as possible, including those withdisabilities such as blindness or motor impairment.* Placeholder for TOC{:toc}# Flutter's accessibility supportFlutter supports three components for accessibility support:* **[Large fonts](#large-fonts)**: Render text widgets with user-specified font font...">
+  
+  <meta property="og:image" content="https://flutter.io/images/flutter-logo-sharing.png">
+
+  <link rel="stylesheet" href="/css/lavish-bootstrap.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Extended" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CRoboto:500,400italic,300,400" rel="stylesheet">
+  
+  <link rel="canonical" href="https://flutter.io/accessibility/">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-67589403-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <meta name="google-site-verification" content="HFqxhSbf9YA_0rBglNLzDiWnrHiK_w4cqDh2YD2GEY4" />
+</head>
+
+
+  <body class="">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND4LWWZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+    <div id="overlay-under-drawer"><!-- for the drawer on narrow screens --></div>
+
+    <header class="site-header">
+  <div class="container-fluid header-contents">
+    <div class="row">
+      <div class="col-md-12">
+        <i class="fa fa-bars" id="sidebar-toggle-button" aria-hidden="true" style="display:none"></i>
+        <img src="/images/flutter-mark-square-100.png" alt="Flutter Logo" width="40" height="40" style="vertical-align:middle">
+
+        <a class="site-title" href="/">Flutter</a>
+
+        <nav class="site-nav">
+          <a href="#" class="menu-icon">
+            <i class="material-icons-extended">more_vert</i>
+          </a>
+          <div class="trigger">
+            <a class="page-link" href="/docs/">Docs</a>
+            <a class="page-link" href="/showcase/">Showcase</a>
+            <a class="page-link" href="https://github.com/flutter/flutter">GitHub</a>
+            <a class="page-link" href="https://pub.dartlang.org/flutter">Packages</a>
+            <a class="page-link" href="/support/">Support</a>
+            <form action="/search/" class="nav-searchbox" id="cse-search-box" style="display: inline">
+              <input type="hidden" name="cx" value="007067728241810524621:gm6vraqlc8c">
+              <input type="hidden" name="ie" value="UTF-8">
+              <input type="hidden" name="hl" value="en">
+              <input type="search" name="q" id="q" autocomplete="off" placeholder="Search">
+            </form>
+          </div>
+        </nav>
+      </div>
+    </div> <!-- /.row -->
+  </div> <!-- /.container -->
+</header>
+
+
+    <!-- Page Content -->
+    <div class="container-fluid contents">
+      <!-- Content Row -->
+      <div class="row">
+
+        <!-- Sidebar Column -->
+        <div id="side-nav-container" class="col-sm-3">
+          <ul id="mysidebar" class="nav">
+
+  <li class="sidebar-title">Get started</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/get-started/install/">1: Install</a></li>
+      <li><a href="/get-started/editor/">2: Configure editor</a></li>
+      <li><a href="/get-started/test-drive/">3: Test drive</a></li>
+      <li><a href="/get-started/codelab/">4: Write your first app</a></li>
+      <li><a href="/get-started/learn-more/">5: Learn more</a></li>
+    </ul>
+
+  <li class="sidebar-title">Build UIs</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/widgets-intro/">Tour the framework</a></li>
+      <li><a href="/widgets/">Widget catalog</a></li>
+      <li><a href="/cookbook/">Cookbook</a></li>
+      <li><a href="/catalog/samples/">Sample catalog</a></li>
+      <li><a href="/codelabs">Codelabs</a></li>
+      <li><a href="/tutorials/layout/">Build layouts - Tutorial</a></li>
+      <li><a href="/tutorials/interactive/">Add interactivity - Tutorial</a></li>
+      <li><a href="/web-analogs/">Flutter for Web devs</a></li>
+      <li><a href="/flutter-for-android/">Flutter for Android devs</a></li>
+      <li><a href="/flutter-for-ios/">Flutter for iOS devs</a></li>
+      <li><a href="/flutter-for-react-native/">Flutter for React Native devs</a></li>
+      <li><a href="/flutter-for-xamarin-forms/">Flutter for Xamarin.Forms devs</a></li>
+      <li><a href="/gestures/">Gestures</a></li>
+      <li><a href="/animations/">Animations</a></li>
+      <li><a href="/layout/">Box constraints</a></li>
+      <li><a href="/assets-and-images/">Assets and images</a></li>
+      <li><a href="/tutorials/internationalization">Internationalization</a></li>
+      <li><a href="/accessibility">Accessibility</a></li>
+    </ul>
+
+  <li class="sidebar-title">Use device and SDK APIs</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/using-packages/">Using packages</a></li>
+      <li><a href="/developing-packages/">Developing packages</a></li>
+      <li><a href="/platform-channels/">Platform-specific code</a></li>
+      <li><a href="/json/">JSON and serialization</a></li>
+      
+    </ul>
+
+  <li class="sidebar-title">Development and tools</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/using-ide/">Using Flutter IDEs</a></li>
+      <li><a href="/hot-reload/">Using hot reload</a></li>
+      <li><a href="/testing/">Test your app</a></li>
+      <li><a href="/debugging/">Debug your app</a></li>
+      <li><a href="/ui-performance/">Performance Profiling</a></li>
+      <li><a href="/inspector/">Inspect your UI</a></li>
+      <li><a href="/android-release/">Build and release for Android</a></li>
+      <li><a href="/ios-release/">Build and release for iOS</a></li>
+      <li><a href="/fastlane-cd/">Continuous deployment with Fastlane</a></li>
+      <li><a href="/upgrading/">Upgrade your Flutter install</a></li>
+      <li><a href="/formatting/">Format your source code</a></li>
+    </ul>
+
+  <li class="sidebar-title">More details</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/faq/">FAQ</a></li>
+      <li><a href="/technical-overview">Technical overview</a></li>
+      <li><a href="https://docs.google.com/presentation/d/1B3p0kP6NV_XMOimRV09Ms75ymIjU5gr6GGIX74Om_DE/edit?usp=sharing">Magic of Flutter slides</a></li>
+      <li><a href="https://docs.google.com/presentation/d/1cw7A4HbvM_Abv320rVgPVGiUP2msVs7tfGbkgdrTy0I/edit?usp=sharing">Architecture diagrams</a></li>
+      <li><a href="https://www.youtube.com/watch?v=dkyY9WCGMi0">Framework's layered design <i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+      <li><a href="https://www.youtube.com/watch?v=UUfXWzp0-DU">Flutter's rendering pipeline <i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+    </ul>
+
+</ul>
+
+        </div>
+
+        
+        
+
+        <!-- Content Column -->
+        <div class="col-sm-9 main-contents">
+          <div class="main-contents-body">
+            <article class="post-content">
+  
+  
+  <header class="post-header">
+      <div class="btn-group contribute" role="group">
+         <a href="https://github.com/flutter/website/blob/master/accessiblity.md" class="btn btn-sm">
+            <i class="fa fa-pencil"></i> Edit Source
+         </a>
+         <a href="https://github.com/flutter/flutter/issues/new?title=Issue from website page Accessibility&body=From URL: https://flutter.io/accessibility/&labels=dev: docs - website" class="btn btn-sm">
+            <i class="fa fa-github"></i> File Issue
+        </a>
+     </div>
+   <div>
+    <h1 class="post-title">Accessibility </h1>
+   </div>
+
+  </header>
+  
+
+  <p>Flutter is committed to supporting developers who want to make their apps more
+accessible: usable by as many people as possible, including those with
+disabilities such as blindness or motor impairment.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#flutters-accessibility-support" id="markdown-toc-flutters-accessibility-support">Flutter’s accessibility support</a>    <ul>
+      <li><a href="#inspecting-accessibility-support" id="markdown-toc-inspecting-accessibility-support">Inspecting Accessibility support</a></li>
+      <li><a href="#large-fonts" id="markdown-toc-large-fonts">Large fonts</a>        <ul>
+          <li><a href="#tips-for-developers" id="markdown-toc-tips-for-developers">Tips for developers</a></li>
+          <li><a href="#example" id="markdown-toc-example">Example</a></li>
+        </ul>
+      </li>
+      <li><a href="#screen-reader" id="markdown-toc-screen-reader">Screen readers</a>        <ul>
+          <li><a href="#tips-for-developers-1" id="markdown-toc-tips-for-developers-1">Tips for developers</a></li>
+        </ul>
+      </li>
+      <li><a href="#sufficient-contrast" id="markdown-toc-sufficient-contrast">Sufficient contrast</a>        <ul>
+          <li><a href="#tips-for-developers-2" id="markdown-toc-tips-for-developers-2">Tips for developers</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="flutters-accessibility-support">Flutter’s accessibility support</h1>
+
+<p>Flutter supports three components for accessibility support:</p>
+
+<ul>
+  <li><strong><a href="#large-fonts">Large fonts</a></strong>: Render text widgets with user-specified font
+font sizes</li>
+  <li><strong><a href="#screen-reader">Screen readers</a></strong>: Communicate spoken feedback about UI
+contents</li>
+  <li><strong><a href="#sufficient-contrast">Sufficient contrast</a></strong>: Render widgets with colors that have
+sufficient contrast</li>
+</ul>
+
+<h2 id="inspecting-accessibility-support">Inspecting Accessibility support</h2>
+
+<p>Details of these are discussed below. In additional to testing for these
+specific topics, we recommend using automated accessibility scanners:</p>
+
+<ul>
+  <li>For Android:
+    <ol>
+      <li>Install the <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.accessibility.auditor&amp;hl=en">Accessibility Scanner</a> for Android</li>
+      <li>Enable the Accessibility Scanner from Android Settings &gt; Accessibility &gt;
+Accessibility Scanner &gt; On</li>
+      <li>Navigate to the Accessibility Scanner ‘checkbox’ icon button to initiate a
+scan</li>
+    </ol>
+  </li>
+  <li>For iOS:
+    <ol>
+      <li>Open the <code class="highlighter-rouge">iOS</code> folder of your Flutter app in Xcode</li>
+      <li>Select a Simulator as the target, and click Run button</li>
+      <li>In Xcode, select Xcode &gt; Open Developer Tools &gt; Accessibility Inspector</li>
+      <li>In the Accessibility Inspector, select Inspection &gt; Enable Point to
+Inspect, and then select the various user interface elements in running
+Flutter app to inspect their accessibility attributes</li>
+      <li>In the Accessibility Inspector, select Audit in the toolbar, and then
+select Run Audio to get a report of potential issues</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="large-fonts">Large fonts</h2>
+
+<p>Both Android and iOS contain system settings to configure the desired font
+sizes used by apps. Flutter text widgets respect this OS setting when
+determining font sizes.</p>
+
+<h3 id="tips-for-developers">Tips for developers</h3>
+
+<p>Font sizes are calculated automatically by Flutter based on the OS setting.
+However, as a developer you should make sure your all layout has enough room to
+render all it’s contents when the font sizes are increased. For example you can
+test all parts of your app on a small-screen device configured to use the
+largest font setting.</p>
+
+<h3 id="example">Example</h3>
+
+<p>The following two screenshots show the standard Flutter app template rendered 1)
+with default iOS font setting, and 2) with the largest font setting
+selected in iOS accessibility settings.</p>
+
+<p><img src="/images/a18n/a18n-fonts-regular.png" alt="Screenshot showing a Flutter app using regular font size" />
+<img src="/images/a18n/a18n-fonts-large.png" alt="Screenshot showing a Flutter app using largest available font size" /></p>
+
+<h2 id="screen-reader">Screen readers</h2>
+
+<p>Screen readers (<a href="https://support.google.com/accessibility/android/answer/6283677?hl=en">TalkBack</a>, <a href="https://www.apple.com/lae/accessibility/iphone/vision/">VoiceOver</a>) enable visually
+impaired users to get spoken feedback about the contents of the screen.</p>
+
+<h3 id="tips-for-developers-1">Tips for developers</h3>
+
+<p>Turn on VoiceOver or TalkBack on your device and navigate around your app. If
+you run into any issues, use the <a href="https://docs.flutter.io/flutter/widgets/Semantics-class.html">Semantics widget</a> to
+customize the accessibility experience of your app.</p>
+
+<h2 id="sufficient-contrast">Sufficient contrast</h2>
+
+<p>Sufficient color contrast makes text and images easier to read. Along with
+benefitting users with various visual impairments, sufficient color contrast
+helps all users when viewing an interface on devices in extreme lighting
+conditions, such as when exposed to direct sunlight or on a display with low
+brightness.</p>
+
+<p>The <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html">W3C recommends</a>:</p>
+
+<ul>
+  <li>At least 4.5:1 for small text (below 18 point regular or 14 point bold)</li>
+  <li>At least 3.0:1 for large text (18 point and above regular or 14 point and
+above bold)</li>
+</ul>
+
+<h3 id="tips-for-developers-2">Tips for developers</h3>
+
+<p>Make sure any images you include have sufficient contrast.</p>
+
+<p>When specifying colors on widgets, make sure sufficient contrast is used between
+foreground and background color selections.</p>
+
+</article>
+
+          </div>
+        </div>
+
+        
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+
+    <footer class="site-footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="logo">
+          <img src="/images/flutter-mono-81x100.png" alt="Flutter Logo" width="81" height="100">
+        </div>
+          <p class="site-footer__link-list">
+            <a href="https://groups.google.com/forum/#!forum/flutter-dev">flutter-dev@</a> &bull;
+            <a href="https://twitter.com/flutterio">twitter</a> &bull;
+            <a href="https://github.com/flutter/">github</a> &bull;
+            <a href="/tos">terms</a> &bull;
+            <a href="https://www.google.com/intl/en/policies/privacy/">privacy</a> &bull;
+            <a href="https://flutter-io.cn">社区中文资源</a>
+          </p>
+
+          <p class="licenses">
+            Except as otherwise noted,
+            this work is licensed under a
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative
+            Commons Attribution 4.0 International License</a>,
+            and code samples are licensed under the BSD License.
+          </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="/js/sidebar_toggle.js"></script>
+    <script src="/js/customscripts.js"></script>
+    <script src="/js/prism.js"></script>
+    <script src="/js/tabs.js"></script>
+    <script src="/js/archive.js"></script>
+    
+    <script async="" defer="" src="//survey.g.doubleclick.net/async_survey?site=at3ul57xpub2vk3oxt2ytw365i"></script>
+  </body>
+</html>

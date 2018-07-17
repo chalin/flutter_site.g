@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Using custom fonts  - Flutter </title>
+  <link rel="shortcut icon" href="/images/favicon.png">
+  
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-ND4LWWZ');</script>
+  <!-- End Google Tag Manager -->
+
+  
+  <meta name="description" content="While Android and iOS offer high quality system fonts, one of the most commonrequests from designers is to use custom fonts! For example, we may have a custom-built font from our designer or downloaded a font from [Google Fonts](https://fonts.google.com/).Flutter works out of the box with custom fonts. We can apply...">
+  <meta name="keywords" content=" ">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@flutterio">
+
+  <meta property="og:title" content="Using custom fonts">
+  <meta property="og:url" content="https://flutter.io/cookbook/design/fonts/">
+  <meta property="og:description" content="While Android and iOS offer high quality system fonts, one of the most commonrequests from designers is to use custom fonts! For example, we may have a custom-built font from our designer or downloaded a font from [Google Fonts](https://fonts.google.com/).Flutter works out of the box with custom fonts. We can apply...">
+  
+  <meta property="og:image" content="https://flutter.io/images/flutter-logo-sharing.png">
+
+  <link rel="stylesheet" href="/css/lavish-bootstrap.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Extended" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro%7CRoboto:500,400italic,300,400" rel="stylesheet">
+  
+  <link rel="canonical" href="https://flutter.io/cookbook/design/fonts/">
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-67589403-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+
+  <meta name="google-site-verification" content="HFqxhSbf9YA_0rBglNLzDiWnrHiK_w4cqDh2YD2GEY4" />
+</head>
+
+
+  <body class="">
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-ND4LWWZ"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+    <div id="overlay-under-drawer"><!-- for the drawer on narrow screens --></div>
+
+    <header class="site-header">
+  <div class="container-fluid header-contents">
+    <div class="row">
+      <div class="col-md-12">
+        <i class="fa fa-bars" id="sidebar-toggle-button" aria-hidden="true" style="display:none"></i>
+        <img src="/images/flutter-mark-square-100.png" alt="Flutter Logo" width="40" height="40" style="vertical-align:middle">
+
+        <a class="site-title" href="/">Flutter</a>
+
+        <nav class="site-nav">
+          <a href="#" class="menu-icon">
+            <i class="material-icons-extended">more_vert</i>
+          </a>
+          <div class="trigger">
+            <a class="page-link" href="/docs/">Docs</a>
+            <a class="page-link" href="/showcase/">Showcase</a>
+            <a class="page-link" href="https://github.com/flutter/flutter">GitHub</a>
+            <a class="page-link" href="https://pub.dartlang.org/flutter">Packages</a>
+            <a class="page-link" href="/support/">Support</a>
+            <form action="/search/" class="nav-searchbox" id="cse-search-box" style="display: inline">
+              <input type="hidden" name="cx" value="007067728241810524621:gm6vraqlc8c">
+              <input type="hidden" name="ie" value="UTF-8">
+              <input type="hidden" name="hl" value="en">
+              <input type="search" name="q" id="q" autocomplete="off" placeholder="Search">
+            </form>
+          </div>
+        </nav>
+      </div>
+    </div> <!-- /.row -->
+  </div> <!-- /.container -->
+</header>
+
+
+    <!-- Page Content -->
+    <div class="container-fluid contents">
+      <!-- Content Row -->
+      <div class="row">
+
+        <!-- Sidebar Column -->
+        <div id="side-nav-container" class="col-sm-3">
+          <ul id="mysidebar" class="nav">
+
+  <li class="sidebar-title">Get started</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/get-started/install/">1: Install</a></li>
+      <li><a href="/get-started/editor/">2: Configure editor</a></li>
+      <li><a href="/get-started/test-drive/">3: Test drive</a></li>
+      <li><a href="/get-started/codelab/">4: Write your first app</a></li>
+      <li><a href="/get-started/learn-more/">5: Learn more</a></li>
+    </ul>
+
+  <li class="sidebar-title">Build UIs</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/widgets-intro/">Tour the framework</a></li>
+      <li><a href="/widgets/">Widget catalog</a></li>
+      <li><a href="/cookbook/">Cookbook</a></li>
+      <li><a href="/catalog/samples/">Sample catalog</a></li>
+      <li><a href="/codelabs">Codelabs</a></li>
+      <li><a href="/tutorials/layout/">Build layouts - Tutorial</a></li>
+      <li><a href="/tutorials/interactive/">Add interactivity - Tutorial</a></li>
+      <li><a href="/web-analogs/">Flutter for Web devs</a></li>
+      <li><a href="/flutter-for-android/">Flutter for Android devs</a></li>
+      <li><a href="/flutter-for-ios/">Flutter for iOS devs</a></li>
+      <li><a href="/flutter-for-react-native/">Flutter for React Native devs</a></li>
+      <li><a href="/flutter-for-xamarin-forms/">Flutter for Xamarin.Forms devs</a></li>
+      <li><a href="/gestures/">Gestures</a></li>
+      <li><a href="/animations/">Animations</a></li>
+      <li><a href="/layout/">Box constraints</a></li>
+      <li><a href="/assets-and-images/">Assets and images</a></li>
+      <li><a href="/tutorials/internationalization">Internationalization</a></li>
+      <li><a href="/accessibility">Accessibility</a></li>
+    </ul>
+
+  <li class="sidebar-title">Use device and SDK APIs</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/using-packages/">Using packages</a></li>
+      <li><a href="/developing-packages/">Developing packages</a></li>
+      <li><a href="/platform-channels/">Platform-specific code</a></li>
+      <li><a href="/json/">JSON and serialization</a></li>
+      
+    </ul>
+
+  <li class="sidebar-title">Development and tools</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/using-ide/">Using Flutter IDEs</a></li>
+      <li><a href="/hot-reload/">Using hot reload</a></li>
+      <li><a href="/testing/">Test your app</a></li>
+      <li><a href="/debugging/">Debug your app</a></li>
+      <li><a href="/ui-performance/">Performance Profiling</a></li>
+      <li><a href="/inspector/">Inspect your UI</a></li>
+      <li><a href="/android-release/">Build and release for Android</a></li>
+      <li><a href="/ios-release/">Build and release for iOS</a></li>
+      <li><a href="/fastlane-cd/">Continuous deployment with Fastlane</a></li>
+      <li><a href="/upgrading/">Upgrade your Flutter install</a></li>
+      <li><a href="/formatting/">Format your source code</a></li>
+    </ul>
+
+  <li class="sidebar-title">More details</li>
+
+    <ul class="sidebar-items">
+      <li><a href="/faq/">FAQ</a></li>
+      <li><a href="/technical-overview">Technical overview</a></li>
+      <li><a href="https://docs.google.com/presentation/d/1B3p0kP6NV_XMOimRV09Ms75ymIjU5gr6GGIX74Om_DE/edit?usp=sharing">Magic of Flutter slides</a></li>
+      <li><a href="https://docs.google.com/presentation/d/1cw7A4HbvM_Abv320rVgPVGiUP2msVs7tfGbkgdrTy0I/edit?usp=sharing">Architecture diagrams</a></li>
+      <li><a href="https://www.youtube.com/watch?v=dkyY9WCGMi0">Framework's layered design <i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+      <li><a href="https://www.youtube.com/watch?v=UUfXWzp0-DU">Flutter's rendering pipeline <i class="fa fa-video-camera" aria-hidden="true"></i></a></li>
+    </ul>
+
+</ul>
+
+        </div>
+
+        
+        
+
+        <!-- Content Column -->
+        <div class="col-sm-9 main-contents">
+          <div class="main-contents-body">
+            <article class="post-content">
+  
+  
+  <header class="post-header">
+      <div class="btn-group contribute" role="group">
+         <a href="https://github.com/flutter/website/blob/master/cookbook/design/fonts.md" class="btn btn-sm">
+            <i class="fa fa-pencil"></i> Edit Source
+         </a>
+         <a href="https://github.com/flutter/flutter/issues/new?title=Issue from website page Using custom fonts&body=From URL: https://flutter.io/cookbook/design/fonts/&labels=dev: docs - website" class="btn btn-sm">
+            <i class="fa fa-github"></i> File Issue
+        </a>
+     </div>
+   <div>
+    <h1 class="post-title">Using custom fonts </h1>
+   </div>
+
+  </header>
+  
+
+  <p>While Android and iOS offer high quality system fonts, one of the most common
+requests from designers is to use custom fonts! For example, we may have a 
+custom-built font from our designer or downloaded a font from 
+<a href="https://fonts.google.com/">Google Fonts</a>.</p>
+
+<p>Flutter works out of the box with custom fonts. We can apply fonts across an
+entire app or to individual Widgets.</p>
+
+<h2 id="directions">Directions</h2>
+
+<ol>
+  <li>Import the font files</li>
+  <li>Declare the font in the <code class="highlighter-rouge">pubspec.yaml</code></li>
+  <li>Set a font as the default</li>
+  <li>Use a font in a specific Widget</li>
+</ol>
+
+<h2 id="1-import-the-font-files">1. Import the font files</h2>
+
+<p>In order to work with a font, we need to import the font files into the project.
+It is common practice to put font files in a <code class="highlighter-rouge">fonts</code> or <code class="highlighter-rouge">assets</code> folder at the 
+root of a Flutter project.</p>
+
+<p>For example, if we want to import the Raleway and Roboto Mono font files into 
+our project, the folder structure would look like this:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>awesome_app/
+  fonts/
+    Raleway-Regular.ttf
+    Raleway-Italic.ttf
+    RobotoMono-Regular.ttf
+    RobotoMono-Bold.ttf
+</code></pre>
+</div>
+
+<h2 id="2-declare-the-font-in-the-pubspecyaml">2. Declare the font in the <code class="highlighter-rouge">pubspec.yaml</code></h2>
+
+<p>Now that we have a font to work with, we need to tell Flutter where to find it.
+We can do so by including a font definition in the <code class="highlighter-rouge">pubspec.yaml</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">flutter</span><span class="pi">:</span>
+  <span class="s">fonts</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">family</span><span class="pi">:</span> <span class="s">Raleway</span>
+      <span class="s">fonts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">asset</span><span class="pi">:</span> <span class="s">fonts/Raleway-Regular.ttf</span>
+        <span class="pi">-</span> <span class="s">asset</span><span class="pi">:</span> <span class="s">fonts/Raleway-Italic.ttf</span>
+          <span class="s">style</span><span class="pi">:</span> <span class="s">italic</span>
+    <span class="pi">-</span> <span class="s">family</span><span class="pi">:</span> <span class="s">RobotoMono</span>
+      <span class="s">fonts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">asset</span><span class="pi">:</span> <span class="s">fonts/RobotoMono-Regular.ttf</span>
+        <span class="pi">-</span> <span class="s">asset</span><span class="pi">:</span> <span class="s">fonts/RobotoMono-Bold.ttf</span>
+          <span class="s">weight</span><span class="pi">:</span> <span class="s">700</span>
+</code></pre>
+</div>
+
+<h3 id="pubspecyaml-option-definitions"><code class="highlighter-rouge">pubspec.yaml</code> option definitions</h3>
+
+<p>The <code class="highlighter-rouge">family</code> determines the name of the font, which we can use in the
+<a href="https://docs.flutter.io/flutter/painting/TextStyle/fontFamily.html"><code class="highlighter-rouge">fontFamily</code></a>
+property of a <a href="https://docs.flutter.io/flutter/painting/TextStyle-class.html"><code class="highlighter-rouge">TextStyle</code></a>
+object.</p>
+
+<p>The <code class="highlighter-rouge">asset</code> is a path to the font file, relative to the <code class="highlighter-rouge">pubspec.yaml</code> file.
+These files contain the outlines for the glyphs in the font. When building our 
+app, these files are included in our app’s asset bundle.</p>
+
+<p>A single font can reference many different files with different outline weights
+and styles:</p>
+
+<ul>
+  <li>
+    <p>The <code class="highlighter-rouge">weight</code> property specifies the weight of the outlines in the file as an
+integer multiple of 100 between 100 and 900. These values correspond to the
+<a href="https://docs.flutter.io/flutter/dart-ui/FontWeight-class.html"><code class="highlighter-rouge">FontWeight</code></a>
+and can be used in the <a href="https://docs.flutter.io/flutter/painting/TextStyle/fontWeight.html"><code class="highlighter-rouge">fontWeight</code></a>
+property of a <a href="https://docs.flutter.io/flutter/painting/TextStyle-class.html"><code class="highlighter-rouge">TextStyle</code></a>
+object.</p>
+  </li>
+  <li>
+    <p>The <code class="highlighter-rouge">style</code> property specfies whether the outlines in the file are
+<code class="highlighter-rouge">italic</code> or <code class="highlighter-rouge">normal</code>. These values correspond to the
+<a href="https://docs.flutter.io/flutter/dart-ui/FontStyle-class.html"><code class="highlighter-rouge">FontStyle</code></a>
+and can be used in the <a href="https://docs.flutter.io/flutter/painting/TextStyle/fontStyle.html">fontStyle</a>
+property of a <a href="https://docs.flutter.io/flutter/painting/TextStyle-class.html"><code class="highlighter-rouge">TextStyle</code></a>
+object.</p>
+  </li>
+</ul>
+
+<h2 id="3-set-a-font-as-the-default">3. Set a font as the default</h2>
+
+<p>We have two options for how to apply fonts to text: as the default font or only 
+within specific Widgets.</p>
+
+<p>To use a font as the default, we can set the <code class="highlighter-rouge">fontFamily</code> property as part of 
+the app’s <code class="highlighter-rouge">theme</code>. The value we provide to <code class="highlighter-rouge">fontFamily</code> must match the <code class="highlighter-rouge">family</code> 
+name declared in the <code class="highlighter-rouge">pubspec.yaml</code>.</p>
+
+<!-- skip -->
+<div class="language-dart highlighter-rouge"><pre class="highlight"><code><span class="n">MaterialApp</span><span class="o">(</span>
+  <span class="nl">title:</span> <span class="s">'Custom Fonts'</span><span class="o">,</span>
+  <span class="c1">// Set Raleway as the default app font</span>
+  <span class="nl">theme:</span> <span class="n">ThemeData</span><span class="o">(</span><span class="nl">fontFamily:</span> <span class="s">'Raleway'</span><span class="o">),</span>
+  <span class="nl">home:</span> <span class="n">MyHomePage</span><span class="o">(),</span>
+<span class="o">);</span>
+</code></pre>
+</div>
+
+<p>For more information on themes, please view the <a href="/cookbook/design/themes/">“Using Themes to share colors 
+and font styles”</a> recipe.</p>
+
+<h2 id="4-use-the-font-in-a-specific-widget">4. Use the font in a specific Widget</h2>
+
+<p>If we want to apply the font to a specific Widget, such as a <code class="highlighter-rouge">Text</code> Widget, 
+we can provide a <a href="https://docs.flutter.io/flutter/painting/TextStyle-class.html"><code class="highlighter-rouge">TextStyle</code></a>
+to the Widget.</p>
+
+<p>In this example, we’ll apply the RobotoMono font to a single <code class="highlighter-rouge">Text</code> Widget. Once 
+again, the <code class="highlighter-rouge">fontFamily</code> must match the <code class="highlighter-rouge">family</code> name we declared in the 
+<code class="highlighter-rouge">pubspec.yaml</code>.</p>
+
+<!-- skip -->
+<div class="language-dart highlighter-rouge"><pre class="highlight"><code><span class="n">Text</span><span class="o">(</span>
+  <span class="s">'Roboto Mono sample'</span><span class="o">,</span>
+  <span class="nl">style:</span> <span class="n">TextStyle</span><span class="o">(</span><span class="nl">fontFamily:</span> <span class="s">'RobotoMono'</span><span class="o">),</span>
+<span class="o">);</span>
+</code></pre>
+</div>
+
+<h3 id="textstyle">TextStyle</h3>
+
+<p>If a <a href="https://docs.flutter.io/flutter/painting/TextStyle-class.html"><code class="highlighter-rouge">TextStyle</code></a>
+object specifies a weight or style for which is there is no exact font file, the
+engine uses one of the more generic files for the font and attempts to
+extrapolate outlines for the requested weight and style.</p>
+
+<h2 id="complete-example">Complete example</h2>
+
+<h3 id="fonts">Fonts</h3>
+
+<p>The Raleway and RobotoMono fonts were downloaded from <a href="https://fonts.google.com/">Google Fonts</a>.</p>
+
+<h3 id="pubspecyaml"><code class="highlighter-rouge">pubspec.yaml</code></h3>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">name</span><span class="pi">:</span> <span class="s">custom_fonts</span>
+<span class="s">description</span><span class="pi">:</span> <span class="s">An example of how to use custom fonts with Flutter</span>
+
+<span class="s">dependencies</span><span class="pi">:</span>
+  <span class="s">flutter</span><span class="pi">:</span>
+    <span class="s">sdk</span><span class="pi">:</span> <span class="s">flutter</span>
+
+<span class="s">dev_dependencies</span><span class="pi">:</span>
+  <span class="s">flutter_test</span><span class="pi">:</span>
+    <span class="s">sdk</span><span class="pi">:</span> <span class="s">flutter</span>
+
+<span class="s">flutter</span><span class="pi">:</span>
+  <span class="s">fonts</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">family</span><span class="pi">:</span> <span class="s">Raleway</span>
+      <span class="s">fonts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">asset</span><span class="pi">:</span> <span class="s">fonts/Raleway-Regular.ttf</span>
+        <span class="pi">-</span> <span class="s">asset</span><span class="pi">:</span> <span class="s">fonts/Raleway-Italic.ttf</span>
+          <span class="s">style</span><span class="pi">:</span> <span class="s">italic</span>
+    <span class="pi">-</span> <span class="s">family</span><span class="pi">:</span> <span class="s">RobotoMono</span>
+      <span class="s">fonts</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">asset</span><span class="pi">:</span> <span class="s">fonts/RobotoMono-Regular.ttf</span>
+        <span class="pi">-</span> <span class="s">asset</span><span class="pi">:</span> <span class="s">fonts/RobotoMono-Bold.ttf</span>
+          <span class="s">weight</span><span class="pi">:</span> <span class="s">700</span>
+  <span class="s">uses-material-design</span><span class="pi">:</span> <span class="s">true</span>
+</code></pre>
+</div>
+
+<h3 id="maindart"><code class="highlighter-rouge">main.dart</code></h3>
+
+<div class="language-dart highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="s">'package:flutter/material.dart'</span><span class="o">;</span>
+
+<span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="o">)</span> <span class="o">=&gt;</span> <span class="n">runApp</span><span class="o">(</span><span class="n">MyApp</span><span class="o">());</span>
+
+<span class="kd">class</span> <span class="nc">MyApp</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="o">{</span>
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="o">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">MaterialApp</span><span class="o">(</span>
+      <span class="nl">title:</span> <span class="s">'Custom Fonts'</span><span class="o">,</span>
+      <span class="c1">// Set Raleway as the default app font</span>
+      <span class="nl">theme:</span> <span class="n">ThemeData</span><span class="o">(</span><span class="nl">fontFamily:</span> <span class="s">'Raleway'</span><span class="o">),</span>
+      <span class="nl">home:</span> <span class="n">MyHomePage</span><span class="o">(),</span>
+    <span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">MyHomePage</span> <span class="kd">extends</span> <span class="n">StatelessWidget</span> <span class="o">{</span>
+  <span class="nd">@override</span>
+  <span class="n">Widget</span> <span class="n">build</span><span class="o">(</span><span class="n">BuildContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">Scaffold</span><span class="o">(</span>
+      <span class="c1">// The AppBar will use the app-default Raleway font</span>
+      <span class="nl">appBar:</span> <span class="n">AppBar</span><span class="o">(</span><span class="nl">title:</span> <span class="n">Text</span><span class="o">(</span><span class="s">'Custom Fonts'</span><span class="o">)),</span>
+      <span class="nl">body:</span> <span class="n">Center</span><span class="o">(</span>
+        <span class="c1">// This Text Widget will use the RobotoMono font</span>
+        <span class="nl">child:</span> <span class="n">Text</span><span class="o">(</span>
+          <span class="s">'Roboto Mono sample'</span><span class="o">,</span>
+          <span class="nl">style:</span> <span class="n">TextStyle</span><span class="o">(</span><span class="nl">fontFamily:</span> <span class="s">'RobotoMono'</span><span class="o">),</span>
+        <span class="o">),</span>
+      <span class="o">),</span>
+    <span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><img src="/images/cookbook/fonts.png" alt="Custom Fonts Demo" /></p>
+
+</article>
+
+          </div>
+        </div>
+
+        
+
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+
+    <footer class="site-footer">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="logo">
+          <img src="/images/flutter-mono-81x100.png" alt="Flutter Logo" width="81" height="100">
+        </div>
+          <p class="site-footer__link-list">
+            <a href="https://groups.google.com/forum/#!forum/flutter-dev">flutter-dev@</a> &bull;
+            <a href="https://twitter.com/flutterio">twitter</a> &bull;
+            <a href="https://github.com/flutter/">github</a> &bull;
+            <a href="/tos">terms</a> &bull;
+            <a href="https://www.google.com/intl/en/policies/privacy/">privacy</a> &bull;
+            <a href="https://flutter-io.cn">社区中文资源</a>
+          </p>
+
+          <p class="licenses">
+            Except as otherwise noted,
+            this work is licensed under a
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/">Creative
+            Commons Attribution 4.0 International License</a>,
+            and code samples are licensed under the BSD License.
+          </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="/js/sidebar_toggle.js"></script>
+    <script src="/js/customscripts.js"></script>
+    <script src="/js/prism.js"></script>
+    <script src="/js/tabs.js"></script>
+    <script src="/js/archive.js"></script>
+    
+    <script async="" defer="" src="//survey.g.doubleclick.net/async_survey?site=at3ul57xpub2vk3oxt2ytw365i"></script>
+  </body>
+</html>
